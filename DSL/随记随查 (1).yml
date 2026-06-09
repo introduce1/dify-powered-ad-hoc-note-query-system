@@ -1,0 +1,1162 @@
+app:
+  description: 宽松输入版随记随查
+  icon: 🤖
+  icon_background: '#FFEAD5'
+  icon_type: emoji
+  mode: advanced-chat
+  name: 随记随查
+  use_icon_as_answer_icon: false
+dependencies:
+- current_identifier: null
+  type: marketplace
+  value:
+    marketplace_plugin_unique_identifier: langgenius/tongyi:0.0.35@d9f7d6aebfdef57fd6a794491030bb0a3f42218f84b1382d187ec7e628e8ba61
+    version: null
+kind: app
+version: 0.6.0
+workflow:
+  conversation_variables:
+  - description: 当前模式（查询/记录）
+    id: e1ed6c95-715b-4226-b1de-b73c80dea9b3
+    name: current_mode
+    selector:
+    - conversation
+    - current_mode
+    value: ''
+    value_type: string
+  - description: 待确认执行SQL
+    id: 303b0470-2df5-470c-8bd9-7aa439c6b310
+    name: pending_sql
+    selector:
+    - conversation
+    - pending_sql
+    value: ''
+    value_type: string
+  environment_variables: []
+  features:
+    file_upload:
+      allowed_file_extensions:
+      - .JPG
+      - .JPEG
+      - .PNG
+      - .GIF
+      - .WEBP
+      - .SVG
+      allowed_file_types:
+      - image
+      allowed_file_upload_methods:
+      - local_file
+      - remote_url
+      enabled: false
+      fileUploadConfig:
+        attachment_image_file_size_limit: 2
+        audio_file_size_limit: 50
+        batch_count_limit: 5
+        file_size_limit: 15
+        file_upload_limit: 20
+        image_file_batch_limit: 10
+        image_file_size_limit: 10
+        single_chunk_attachment_limit: 10
+        video_file_size_limit: 100
+        workflow_file_upload_limit: 10
+      image:
+        enabled: false
+        number_limits: 3
+        transfer_methods:
+        - local_file
+        - remote_url
+      number_limits: 3
+    opening_statement: 欢迎使用随记随查。请先单独输入“查询”或“记录”，再按提示输入具体内容。
+    retriever_resource:
+      enabled: false
+    sensitive_word_avoidance:
+      enabled: false
+    speech_to_text:
+      enabled: false
+    suggested_questions:
+    - 查询
+    - 记录
+    - 检索
+    - 录入
+    suggested_questions_after_answer:
+      enabled: false
+    text_to_speech:
+      enabled: false
+      language: ''
+      voice: ''
+  graph:
+    edges:
+    - data:
+        isInIteration: false
+        sourceType: start
+        targetType: if-else
+      id: 1740000000001-source-1740000000002-target
+      source: '1740000000001'
+      sourceHandle: source
+      target: '1740000000002'
+      targetHandle: target
+      type: custom
+      zIndex: 0
+    - data:
+        isInIteration: false
+        sourceType: if-else
+        targetType: if-else
+      id: 1740000000002-true-1740000000003-target
+      source: '1740000000002'
+      sourceHandle: 'true'
+      target: '1740000000003'
+      targetHandle: target
+      type: custom
+      zIndex: 0
+    - data:
+        isInIteration: false
+        sourceType: if-else
+        targetType: if-else
+      id: 1740000000002-false-1740000000007-target
+      source: '1740000000002'
+      sourceHandle: 'false'
+      target: '1740000000007'
+      targetHandle: target
+      type: custom
+      zIndex: 0
+    - data:
+        isInIteration: false
+        sourceType: if-else
+        targetType: code
+      id: 1740000000003-true-1740000000004-target
+      source: '1740000000003'
+      sourceHandle: 'true'
+      target: '1740000000004'
+      targetHandle: target
+      type: custom
+      zIndex: 0
+    - data:
+        isInIteration: false
+        sourceType: if-else
+        targetType: assigner
+      id: 1740000000003-false-1740000000005-target
+      source: '1740000000003'
+      sourceHandle: 'false'
+      target: '1740000000005'
+      targetHandle: target
+      type: custom
+      zIndex: 0
+    - data:
+        isInIteration: false
+        sourceType: code
+        targetType: assigner
+      id: 1740000000004-source-1740000000006-target
+      source: '1740000000004'
+      sourceHandle: source
+      target: '1740000000006'
+      targetHandle: target
+      type: custom
+      zIndex: 0
+    - data:
+        isInIteration: false
+        sourceType: assigner
+        targetType: answer
+      id: 1740000000006-source-1740000000016-target
+      source: '1740000000006'
+      sourceHandle: source
+      target: '1740000000016'
+      targetHandle: target
+      type: custom
+      zIndex: 0
+    - data:
+        isInIteration: false
+        sourceType: assigner
+        targetType: answer
+      id: 1740000000005-source-1740000000017-target
+      source: '1740000000005'
+      sourceHandle: source
+      target: '1740000000017'
+      targetHandle: target
+      type: custom
+      zIndex: 0
+    - data:
+        isInIteration: false
+        sourceType: if-else
+        targetType: llm
+      id: 1740000000007-true-1740000000008-target
+      source: '1740000000007'
+      sourceHandle: 'true'
+      target: '1740000000008'
+      targetHandle: target
+      type: custom
+      zIndex: 0
+    - data:
+        isInIteration: false
+        sourceType: if-else
+        targetType: if-else
+      id: 1740000000007-false-1740000000012-target
+      source: '1740000000007'
+      sourceHandle: 'false'
+      target: '1740000000012'
+      targetHandle: target
+      type: custom
+      zIndex: 0
+    - data:
+        isInIteration: false
+        sourceType: llm
+        targetType: code
+      id: 1740000000008-source-1740000000009-target
+      source: '1740000000008'
+      sourceHandle: source
+      target: '1740000000009'
+      targetHandle: target
+      type: custom
+      zIndex: 0
+    - data:
+        isInIteration: false
+        sourceType: code
+        targetType: code
+      id: 1740000000009-source-1740000000010-target
+      source: '1740000000009'
+      sourceHandle: source
+      target: '1740000000010'
+      targetHandle: target
+      type: custom
+      zIndex: 0
+    - data:
+        isInIteration: false
+        sourceType: code
+        targetType: assigner
+      id: 1740000000010-source-1740000000011-target
+      source: '1740000000010'
+      sourceHandle: source
+      target: '1740000000011'
+      targetHandle: target
+      type: custom
+      zIndex: 0
+    - data:
+        isInIteration: false
+        sourceType: assigner
+        targetType: answer
+      id: 1740000000011-source-1740000000018-target
+      source: '1740000000011'
+      sourceHandle: source
+      target: '1740000000018'
+      targetHandle: target
+      type: custom
+      zIndex: 0
+    - data:
+        isInIteration: false
+        sourceType: if-else
+        targetType: llm
+      id: 1740000000012-true-1740000000013-target
+      source: '1740000000012'
+      sourceHandle: 'true'
+      target: '1740000000013'
+      targetHandle: target
+      type: custom
+      zIndex: 0
+    - data:
+        isInIteration: false
+        sourceType: if-else
+        targetType: if-else
+      id: 1740000000012-false-1740000000015-target
+      source: '1740000000012'
+      sourceHandle: 'false'
+      target: '1740000000015'
+      targetHandle: target
+      type: custom
+      zIndex: 0
+    - data:
+        isInIteration: false
+        sourceType: llm
+        targetType: code
+      id: 1740000000013-source-1740000000014-target
+      source: '1740000000013'
+      sourceHandle: source
+      target: '1740000000014'
+      targetHandle: target
+      type: custom
+      zIndex: 0
+    - data:
+        isInIteration: false
+        sourceType: code
+        targetType: assigner
+      id: 1740000000014-source-1740000000019-target
+      source: '1740000000014'
+      sourceHandle: source
+      target: '1740000000019'
+      targetHandle: target
+      type: custom
+      zIndex: 0
+    - data:
+        isInIteration: false
+        sourceType: assigner
+        targetType: answer
+      id: 1740000000019-source-1740000000020-target
+      source: '1740000000019'
+      sourceHandle: source
+      target: '1740000000020'
+      targetHandle: target
+      type: custom
+      zIndex: 0
+    - data:
+        isInIteration: false
+        sourceType: if-else
+        targetType: assigner
+      id: 1740000000015-true-1740000000021-target
+      source: '1740000000015'
+      sourceHandle: 'true'
+      target: '1740000000021'
+      targetHandle: target
+      type: custom
+      zIndex: 0
+    - data:
+        isInIteration: false
+        sourceType: if-else
+        targetType: assigner
+      id: 1740000000015-773289b8-22d2-43c8-a8b5-f2d0aa95db92-1740000000022-target
+      source: '1740000000015'
+      sourceHandle: 773289b8-22d2-43c8-a8b5-f2d0aa95db92
+      target: '1740000000022'
+      targetHandle: target
+      type: custom
+      zIndex: 0
+    - data:
+        isInIteration: false
+        sourceType: if-else
+        targetType: answer
+      id: 1740000000015-false-1740000000023-target
+      source: '1740000000015'
+      sourceHandle: 'false'
+      target: '1740000000023'
+      targetHandle: target
+      type: custom
+      zIndex: 0
+    - data:
+        isInIteration: false
+        sourceType: assigner
+        targetType: answer
+      id: 1740000000021-source-1740000000024-target
+      source: '1740000000021'
+      sourceHandle: source
+      target: '1740000000024'
+      targetHandle: target
+      type: custom
+      zIndex: 0
+    - data:
+        isInIteration: false
+        sourceType: assigner
+        targetType: answer
+      id: 1740000000022-source-1740000000025-target
+      source: '1740000000022'
+      sourceHandle: source
+      target: '1740000000025'
+      targetHandle: target
+      type: custom
+      zIndex: 0
+    nodes:
+    - data:
+        desc: ''
+        selected: false
+        title: 开始
+        type: start
+        variables: []
+      height: 72
+      id: '1740000000001'
+      position:
+        x: 100
+        y: 350
+      positionAbsolute:
+        x: 100
+        y: 350
+      selected: false
+      sourcePosition: right
+      targetPosition: left
+      type: custom
+      width: 242
+    - data:
+        cases:
+        - case_id: 'true'
+          conditions:
+          - comparison_operator: is
+            id: 7b5a43b2-efe7-4077-8839-754fb9f64f72
+            value: 待确认保存
+            varType: string
+            variable_selector:
+            - conversation
+            - current_mode
+          id: 'true'
+          logical_operator: and
+        desc: ''
+        selected: false
+        title: 判断是否有待确认SQL
+        type: if-else
+      height: 123
+      id: '1740000000002'
+      position:
+        x: 390
+        y: 350
+      positionAbsolute:
+        x: 390
+        y: 350
+      selected: false
+      sourcePosition: right
+      targetPosition: left
+      type: custom
+      width: 241
+    - data:
+        cases:
+        - case_id: 'true'
+          conditions:
+          - comparison_operator: contains
+            id: 4ca7f7c1-9ff4-46b1-b225-1b38b6260a4e
+            value: 是
+            varType: string
+            variable_selector:
+            - sys
+            - query
+          - comparison_operator: contains
+            id: fdf73ef4-9752-4db1-934c-bab2e3ac0531
+            value: 确认
+            varType: string
+            variable_selector:
+            - sys
+            - query
+          - comparison_operator: contains
+            id: e34293a3-8bfb-4918-bf35-c81691968d65
+            value: 保存
+            varType: string
+            variable_selector:
+            - sys
+            - query
+          - comparison_operator: contains
+            id: 1507908e-0724-4a31-8e3b-3bc5de7ec394
+            value: true
+            varType: string
+            variable_selector:
+            - sys
+            - query
+          id: 'true'
+          logical_operator: or
+        desc: ''
+        selected: false
+        title: 判断用户是否确认保存
+        type: if-else
+      height: 201
+      id: '1740000000003'
+      position:
+        x: 690
+        y: 120
+      positionAbsolute:
+        x: 690
+        y: 120
+      selected: false
+      sourcePosition: right
+      targetPosition: left
+      type: custom
+      width: 241
+    - data:
+        code: "import urllib.request, json\ndef main(sql_query: str) -> dict:\n  \
+          \  if not sql_query or not sql_query.strip():\n        return {'result':\
+          \ '错误：没有待执行的SQL，请重新输入记录信息后确认'}\n    api_url = 'http://192.168.1.10:8888/api/records/execute'\n\
+          \    req = urllib.request.Request(api_url, data=json.dumps({'sql': sql_query}).encode('utf-8'),\
+          \ headers={\"Content-Type\": \"application/json\"})\n    try:\n        with\
+          \ urllib.request.urlopen(req, timeout=10) as response:\n            result\
+          \ = json.loads(response.read().decode('utf-8'))\n            return {'result':\
+          \ result.get('message', '操作完成')}\n    except Exception as e:\n        return\
+          \ {'result': f'错误: {str(e)}'}"
+        code_language: python3
+        desc: ''
+        outputs:
+          result:
+            children: null
+            type: string
+        selected: false
+        title: 执行待确认SQL
+        type: code
+        variables:
+        - value_selector:
+          - conversation
+          - pending_sql
+          variable: sql_query
+      height: 51
+      id: '1740000000004'
+      position:
+        x: 980
+        y: 40
+      positionAbsolute:
+        x: 980
+        y: 40
+      selected: false
+      sourcePosition: right
+      targetPosition: left
+      type: custom
+      width: 241
+    - data:
+        desc: ''
+        items:
+        - input_type: variable
+          operation: clear
+          value: ''
+          variable_selector:
+          - conversation
+          - pending_sql
+          write_mode: over-write
+        - input_type: variable
+          operation: clear
+          value: ''
+          variable_selector:
+          - conversation
+          - current_mode
+          write_mode: over-write
+        selected: false
+        title: 清空状态-取消
+        type: assigner
+        version: '2'
+      height: 109
+      id: '1740000000005'
+      position:
+        x: 980
+        y: 180
+      positionAbsolute:
+        x: 980
+        y: 180
+      selected: false
+      sourcePosition: right
+      targetPosition: left
+      type: custom
+      width: 241
+    - data:
+        desc: ''
+        items:
+        - input_type: variable
+          operation: clear
+          value: ''
+          variable_selector:
+          - conversation
+          - pending_sql
+          write_mode: over-write
+        - input_type: variable
+          operation: clear
+          value: ''
+          variable_selector:
+          - conversation
+          - current_mode
+          write_mode: over-write
+        selected: false
+        title: 清空状态-保存后
+        type: assigner
+        version: '2'
+      height: 109
+      id: '1740000000006'
+      position:
+        x: 1270
+        y: 40
+      positionAbsolute:
+        x: 1270
+        y: 40
+      selected: false
+      sourcePosition: right
+      targetPosition: left
+      type: custom
+      width: 241
+    - data:
+        cases:
+        - case_id: 'true'
+          conditions:
+          - comparison_operator: is
+            id: 525b8d9a-4a76-4e8d-99e7-cea102c66704
+            value: 查询
+            varType: string
+            variable_selector:
+            - conversation
+            - current_mode
+          id: 'true'
+          logical_operator: and
+        desc: ''
+        selected: false
+        title: 判断是否查询模式
+        type: if-else
+      height: 123
+      id: '1740000000007'
+      position:
+        x: 690
+        y: 350
+      positionAbsolute:
+        x: 690
+        y: 350
+      selected: false
+      sourcePosition: right
+      targetPosition: left
+      type: custom
+      width: 241
+    - data:
+        context:
+          enabled: false
+          variable_selector: []
+        desc: ''
+        model:
+          completion_params:
+            temperature: 0.2
+          mode: chat
+          name: deepseek-v3
+          provider: langgenius/tongyi/tongyi
+        prompt_template:
+        - id: p8s
+          role: system
+          text: 你是MySQL查询SQL生成助手。用户输入可能是固定格式，也可能是自然描述。表名：zhihiku；字段：emp_id,rec_type,content,create_time。rec_type仅允许：备忘录、生产记录检查。请生成一条MySQL
+            SELECT语句（建议按content做LIKE关键词过滤，按create_time DESC排序）。只输出SQL，不要Markdown。
+        - id: p8u
+          role: user
+          text: 用户输入：{{#sys.query#}}
+        selected: false
+        title: LLM-生成查询SQL
+        type: llm
+        variables: []
+        vision:
+          enabled: false
+      height: 87
+      id: '1740000000008'
+      position:
+        x: 980
+        y: 320
+      positionAbsolute:
+        x: 980
+        y: 320
+      selected: false
+      sourcePosition: right
+      targetPosition: left
+      type: custom
+      width: 241
+    - data:
+        code: "import re\ndef main(sql_string: str) -> dict:\n    s = (sql_string\
+          \ or '')\n    s = re.sub(r'```sql\\s*', '', s, flags=re.IGNORECASE)\n  \
+          \  s = re.sub(r'\\s*```', '', s)\n    s = ' '.join(s.replace('\\n', ' ').split())\n\
+          \    return {'sql': s}\n"
+        code_language: python3
+        desc: ''
+        outputs:
+          sql:
+            children: null
+            type: string
+        selected: false
+        title: 整理查询SQL
+        type: code
+        variables:
+        - value_selector:
+          - '1740000000008'
+          - text
+          variable: sql_string
+      height: 51
+      id: '1740000000009'
+      position:
+        x: 1270
+        y: 320
+      positionAbsolute:
+        x: 1270
+        y: 320
+      selected: false
+      sourcePosition: right
+      targetPosition: left
+      type: custom
+      width: 241
+    - data:
+        code: "import urllib.request, json\n\ndef main(sql_query: str) -> dict:\n\
+          \    if not sql_query or not sql_query.strip():\n        return {\"result\"\
+          : \"错误：SQL为空\"}\n\n    api_url = \"http://192.168.1.10:8888/api/records/execute\"\
+          \n    req = urllib.request.Request(\n        api_url,\n        data=json.dumps({\"\
+          sql\": sql_query}).encode(\"utf-8\"),\n        headers={\"Content-Type\"\
+          : \"application/json\"},\n    )\n\n    try:\n        with urllib.request.urlopen(req,\
+          \ timeout=10) as response:\n            result = json.loads(response.read().decode(\"\
+          utf-8\"))\n\n        # 查询分支：优先返回 data 里的具体记录\n        rows = result.get(\"\
+          data\")\n        if isinstance(rows, list):\n            if not rows:\n\
+          \                return {\"result\": \"未查询到相关记录\"}\n\n            lines\
+          \ = []\n            for i, row in enumerate(rows, 1):\n                emp_id\
+          \ = row.get(\"emp_id\", \"\")\n                rec_type = row.get(\"rec_type\"\
+          , \"\")\n                content = row.get(\"content\", \"\")\n        \
+          \        create_time = row.get(\"create_time\", \"\")\n                lines.append(\n\
+          \                    f\"{i}. 员工编号:{emp_id} | 类型:{rec_type} | 内容:{content}\
+          \ | 时间:{create_time}\"\n                )\n            return {\"result\"\
+          : \"查询结果：\\n\" + \"\\n\".join(lines)}\n\n        # 兼容非查询返回\n        return\
+          \ {\"result\": result.get(\"message\", \"操作完成\")}\n\n    except Exception\
+          \ as e:\n        return {\"result\": f\"错误: {str(e)}\"}"
+        code_language: python3
+        desc: ''
+        outputs:
+          result:
+            children: null
+            type: string
+        selected: false
+        title: 执行查询SQL
+        type: code
+        variables:
+        - value_selector:
+          - '1740000000009'
+          - sql
+          variable: sql_query
+      height: 51
+      id: '1740000000010'
+      position:
+        x: 1560
+        y: 320
+      positionAbsolute:
+        x: 1560
+        y: 320
+      selected: true
+      sourcePosition: right
+      targetPosition: left
+      type: custom
+      width: 241
+    - data:
+        desc: ''
+        items:
+        - input_type: variable
+          operation: clear
+          value: ''
+          variable_selector:
+          - conversation
+          - current_mode
+          write_mode: over-write
+        selected: false
+        title: 清空查询模式
+        type: assigner
+        version: '2'
+      height: 83
+      id: '1740000000011'
+      position:
+        x: 1850
+        y: 320
+      positionAbsolute:
+        x: 1850
+        y: 320
+      selected: false
+      sourcePosition: right
+      targetPosition: left
+      type: custom
+      width: 241
+    - data:
+        cases:
+        - case_id: 'true'
+          conditions:
+          - comparison_operator: is
+            id: 39b7c29d-f7b9-4e8e-ac47-2b3efca78b8c
+            value: 记录
+            varType: string
+            variable_selector:
+            - conversation
+            - current_mode
+          id: 'true'
+          logical_operator: and
+        desc: ''
+        selected: false
+        title: 判断是否记录模式
+        type: if-else
+      height: 123
+      id: '1740000000012'
+      position:
+        x: 980
+        y: 560
+      positionAbsolute:
+        x: 980
+        y: 560
+      selected: false
+      sourcePosition: right
+      targetPosition: left
+      type: custom
+      width: 241
+    - data:
+        context:
+          enabled: false
+          variable_selector: []
+        desc: ''
+        model:
+          completion_params:
+            temperature: 0.2
+          mode: chat
+          name: deepseek-v3
+          provider: langgenius/tongyi/tongyi
+        prompt_template:
+        - id: p13s
+          role: system
+          text: 你是MySQL插入SQL生成助手。用户输入可能是固定格式，也可能是自然描述。表名：zhihiku；字段：emp_id,rec_type,content,create_time。rec_type仅允许：备忘录、生产记录检查。请生成一条MySQL
+            INSERT语句（仅写入emp_id,rec_type,content,create_time，create_time用NOW()）。只输出SQL，不要Markdown。
+        - id: p13u
+          role: user
+          text: 用户输入：{{#sys.query#}}
+        selected: false
+        title: LLM-生成记录SQL
+        type: llm
+        variables: []
+        vision:
+          enabled: false
+      height: 87
+      id: '1740000000013'
+      position:
+        x: 1270
+        y: 560
+      positionAbsolute:
+        x: 1270
+        y: 560
+      selected: false
+      sourcePosition: right
+      targetPosition: left
+      type: custom
+      width: 241
+    - data:
+        code: "import re\ndef main(sql_string: str) -> dict:\n    s = (sql_string\
+          \ or '')\n    s = re.sub(r'```sql\\s*', '', s, flags=re.IGNORECASE)\n  \
+          \  s = re.sub(r'\\s*```', '', s)\n    s = ' '.join(s.replace('\\n', ' ').split())\n\
+          \    return {'sql': s}\n"
+        code_language: python3
+        desc: ''
+        outputs:
+          sql:
+            children: null
+            type: string
+        selected: false
+        title: 整理记录SQL
+        type: code
+        variables:
+        - value_selector:
+          - '1740000000013'
+          - text
+          variable: sql_string
+      height: 51
+      id: '1740000000014'
+      position:
+        x: 1560
+        y: 560
+      positionAbsolute:
+        x: 1560
+        y: 560
+      selected: false
+      sourcePosition: right
+      targetPosition: left
+      type: custom
+      width: 241
+    - data:
+        cases:
+        - case_id: 'true'
+          conditions:
+          - comparison_operator: is
+            id: f4dd846f-7dc2-476f-94bb-984779751c38
+            value: 查询
+            varType: string
+            variable_selector:
+            - sys
+            - query
+          - comparison_operator: is
+            id: cc4d8188-48f6-4d57-8a13-6411928114e9
+            value: 检索
+            varType: string
+            variable_selector:
+            - sys
+            - query
+          id: 'true'
+          logical_operator: or
+        - case_id: 773289b8-22d2-43c8-a8b5-f2d0aa95db92
+          conditions:
+          - comparison_operator: is
+            id: 0f072ee0-0e2d-4b5a-998c-acfd7308b946
+            value: 记录
+            varType: string
+            variable_selector:
+            - sys
+            - query
+          - comparison_operator: is
+            id: 5884b5e2-f59f-47fa-b94a-c0266e013b92
+            value: 录入
+            varType: string
+            variable_selector:
+            - sys
+            - query
+          id: 773289b8-22d2-43c8-a8b5-f2d0aa95db92
+          logical_operator: or
+        desc: ''
+        selected: false
+        title: 路由-查询或记录
+        type: if-else
+      height: 327
+      id: '1740000000015'
+      position:
+        x: 1270
+        y: 850
+      positionAbsolute:
+        x: 1270
+        y: 850
+      selected: false
+      sourcePosition: right
+      targetPosition: left
+      type: custom
+      width: 241
+    - data:
+        answer: '保存成功。
+
+
+          {{#1740000000004.result#}}'
+        desc: ''
+        selected: false
+        title: 回复-保存结果
+        type: answer
+        variables: []
+      height: 102
+      id: '1740000000016'
+      position:
+        x: 1560
+        y: 40
+      positionAbsolute:
+        x: 1560
+        y: 40
+      selected: false
+      sourcePosition: right
+      targetPosition: left
+      type: custom
+      width: 241
+    - data:
+        answer: '已取消保存。
+
+
+          如需继续，请输入“查询”或“记录”。'
+        desc: ''
+        selected: false
+        title: 回复-取消保存
+        type: answer
+        variables: []
+      height: 115
+      id: '1740000000017'
+      position:
+        x: 1270
+        y: 180
+      positionAbsolute:
+        x: 1270
+        y: 180
+      selected: false
+      sourcePosition: right
+      targetPosition: left
+      type: custom
+      width: 241
+    - data:
+        answer: '查询结果：
+
+
+          {{#1740000000010.result#}}'
+        desc: ''
+        selected: false
+        title: 回复-查询结果
+        type: answer
+        variables: []
+      height: 102
+      id: '1740000000018'
+      position:
+        x: 2140
+        y: 320
+      positionAbsolute:
+        x: 2140
+        y: 320
+      selected: false
+      sourcePosition: right
+      targetPosition: left
+      type: custom
+      width: 241
+    - data:
+        desc: ''
+        items:
+        - input_type: variable
+          operation: over-write
+          value:
+          - '1740000000014'
+          - sql
+          variable_selector:
+          - conversation
+          - pending_sql
+          write_mode: over-write
+        - input_type: constant
+          operation: set
+          value: 待确认保存
+          variable_selector:
+          - conversation
+          - current_mode
+          write_mode: over-write
+        selected: false
+        title: 保存待确认SQL
+        type: assigner
+        version: '2'
+      height: 109
+      id: '1740000000019'
+      position:
+        x: 1850
+        y: 560
+      positionAbsolute:
+        x: 1850
+        y: 560
+      selected: false
+      sourcePosition: right
+      targetPosition: left
+      type: custom
+      width: 241
+    - data:
+        answer: '请确认是否保存？
+
+
+          输入“是”确认保存，输入“否”取消。'
+        desc: ''
+        selected: false
+        title: 回复-确认保存
+        type: answer
+        variables: []
+      height: 115
+      id: '1740000000020'
+      position:
+        x: 2140
+        y: 560
+      positionAbsolute:
+        x: 2140
+        y: 560
+      selected: false
+      sourcePosition: right
+      targetPosition: left
+      type: custom
+      width: 241
+    - data:
+        desc: ''
+        items:
+        - input_type: constant
+          operation: set
+          value: 查询
+          variable_selector:
+          - conversation
+          - current_mode
+          write_mode: over-write
+        selected: false
+        title: 设置查询模式
+        type: assigner
+        version: '2'
+      height: 83
+      id: '1740000000021'
+      position:
+        x: 1560
+        y: 800
+      positionAbsolute:
+        x: 1560
+        y: 800
+      selected: false
+      sourcePosition: right
+      targetPosition: left
+      type: custom
+      width: 241
+    - data:
+        desc: ''
+        items:
+        - input_type: constant
+          operation: set
+          value: 记录
+          variable_selector:
+          - conversation
+          - current_mode
+          write_mode: over-write
+        selected: false
+        title: 设置记录模式
+        type: assigner
+        version: '2'
+      height: 83
+      id: '1740000000022'
+      position:
+        x: 1560
+        y: 940
+      positionAbsolute:
+        x: 1560
+        y: 940
+      selected: false
+      sourcePosition: right
+      targetPosition: left
+      type: custom
+      width: 241
+    - data:
+        answer: '请输入“查询”或“记录”。
+
+          先发命令，再发内容。
+
+          例如：
+          1. 先发：记录
+          2. 再发：1001，生产记录检查，3号线巡检通过'
+        desc: ''
+        selected: false
+        title: 回复-无效输入
+        type: answer
+        variables: []
+      height: 115
+      id: '1740000000023'
+      position:
+        x: 1560
+        y: 1080
+      positionAbsolute:
+        x: 1560
+        y: 1080
+      selected: false
+      sourcePosition: right
+      targetPosition: left
+      type: custom
+      width: 241
+    - data:
+        answer: '查询需要输入以下内容：
+
+          员工编号：
+
+          查询类型：备忘录/生产记录检查
+
+          查询内容：
+
+          请输入：
+
+
+          也支持自然输入，例如：帮我查1001的备忘录，关键词设备巡检。'
+        desc: ''
+        selected: false
+        title: 回复-查询输入提示
+        type: answer
+        variables: []
+      height: 163
+      id: '1740000000024'
+      position:
+        x: 1850
+        y: 800
+      positionAbsolute:
+        x: 1850
+        y: 800
+      selected: false
+      sourcePosition: right
+      targetPosition: left
+      type: custom
+      width: 241
+    - data:
+        answer: '记录需要输入以下内容：
+
+          员工编号：
+
+          记录类型：备忘录/生产记录检查
+
+          记录内容：
+
+          请输入：
+
+
+          也支持自然输入，例如：帮我给1001新增一条生产记录检查：3号线巡检通过。'
+        desc: ''
+        selected: false
+        title: 回复-记录输入提示
+        type: answer
+        variables: []
+      height: 163
+      id: '1740000000025'
+      position:
+        x: 1850
+        y: 940
+      positionAbsolute:
+        x: 1850
+        y: 940
+      selected: false
+      sourcePosition: right
+      targetPosition: left
+      type: custom
+      width: 241
+    viewport:
+      x: -1342.9525142282157
+      y: 76.71803460355318
+      zoom: 0.8336441115807192
+  rag_pipeline_variables: []

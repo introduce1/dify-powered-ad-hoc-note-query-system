@@ -1,0 +1,8 @@
+1：随记随查api: 见 .env 配置
+地址：https://cloud.dify.ai/app/49e69a76-6efe-4a3b-b4c7-f6358f77d504/workflow
+
+2：自然语言查询——多轮对话：见 .env 配置
+地址：https://cloud.dify.ai/app/555bc0a3-31bc-4602-b95d-7b66e97b5b3b/workflow
+
+3：自然语言查询生产记录 api: 见 .env 配置
+地址：https://cloud.dify.ai/app/3e2f7077-4f04-45d2-9da1-65d29f689be7/workflow

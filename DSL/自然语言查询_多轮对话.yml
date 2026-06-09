@@ -1,0 +1,383 @@
+app:
+  description: xadi
+  icon: 🤖
+  icon_background: '#FFEAD5'
+  icon_type: emoji
+  mode: advanced-chat
+  name: 自然语言查询_多轮对话
+  use_icon_as_answer_icon: false
+dependencies:
+- current_identifier: null
+  type: marketplace
+  value:
+    marketplace_plugin_unique_identifier: langgenius/deepseek:0.0.6@dd589dc093c8084925858034ab5ec1fdf0d33819f43226c2f8c4a749a9acbbb2
+    version: null
+- current_identifier: null
+  type: marketplace
+  value:
+    marketplace_plugin_unique_identifier: langgenius/tongyi:0.0.35@d9f7d6aebfdef57fd6a794491030bb0a3f42218f84b1382d187ec7e628e8ba61
+    version: null
+kind: app
+version: 0.6.0
+workflow:
+  conversation_variables: []
+  environment_variables: []
+  features:
+    file_upload:
+      allowed_file_extensions:
+      - .JPG
+      - .JPEG
+      - .PNG
+      - .GIF
+      - .WEBP
+      - .SVG
+      allowed_file_types:
+      - image
+      allowed_file_upload_methods:
+      - local_file
+      - remote_url
+      enabled: false
+      fileUploadConfig:
+        attachment_image_file_size_limit: 2
+        audio_file_size_limit: 50
+        batch_count_limit: 5
+        file_size_limit: 15
+        file_upload_limit: 50
+        image_file_batch_limit: 10
+        image_file_size_limit: 10
+        single_chunk_attachment_limit: 10
+        video_file_size_limit: 100
+        workflow_file_upload_limit: 10
+      image:
+        enabled: false
+        number_limits: 3
+        transfer_methods:
+        - local_file
+        - remote_url
+      number_limits: 3
+    opening_statement: ''
+    retriever_resource:
+      enabled: true
+    sensitive_word_avoidance:
+      enabled: false
+    speech_to_text:
+      enabled: false
+    suggested_questions: []
+    suggested_questions_after_answer:
+      enabled: false
+    text_to_speech:
+      enabled: false
+      language: ''
+      voice: ''
+  graph:
+    edges:
+    - data:
+        isInIteration: false
+        sourceType: start
+        targetType: knowledge-retrieval
+      id: 1751111158454-source-1751115097133-target
+      source: '1751111158454'
+      sourceHandle: source
+      target: '1751115097133'
+      targetHandle: target
+      type: custom
+      zIndex: 0
+    - data:
+        isInIteration: false
+        sourceType: knowledge-retrieval
+        targetType: llm
+      id: 1751115097133-source-1751115148353-target
+      source: '1751115097133'
+      sourceHandle: source
+      target: '1751115148353'
+      targetHandle: target
+      type: custom
+      zIndex: 0
+    - data:
+        isInIteration: false
+        sourceType: llm
+        targetType: code
+      id: 1751115148353-source-1751115290496-target
+      source: '1751115148353'
+      sourceHandle: source
+      target: '1751115290496'
+      targetHandle: target
+      type: custom
+      zIndex: 0
+    - data:
+        isInIteration: false
+        sourceType: code
+        targetType: code
+      id: 1751115290496-source-1751115391686-target
+      source: '1751115290496'
+      sourceHandle: source
+      target: '1751115391686'
+      targetHandle: target
+      type: custom
+      zIndex: 0
+    - data:
+        isInLoop: false
+        sourceType: code
+        targetType: answer
+      id: 1751115391686-source-answer-target
+      source: '1751115391686'
+      sourceHandle: source
+      target: answer
+      targetHandle: target
+      type: custom
+      zIndex: 0
+    nodes:
+    - data:
+        desc: ''
+        selected: false
+        title: 开始
+        type: start
+        variables: []
+      height: 72
+      id: '1751111158454'
+      position:
+        x: -899.1866938182143
+        y: 268.09075323060404
+      positionAbsolute:
+        x: -899.1866938182143
+        y: 268.09075323060404
+      selected: true
+      sourcePosition: right
+      targetPosition: left
+      type: custom
+      width: 242
+    - data:
+        answer: '{{#1751115391686.result#}}
+
+          '
+        desc: ''
+        selected: false
+        title: 直接回复
+        type: answer
+        variables: []
+      height: 102
+      id: answer
+      position:
+        x: 922.814094486198
+        y: 298.1135353305406
+      positionAbsolute:
+        x: 922.814094486198
+        y: 298.1135353305406
+      selected: false
+      sourcePosition: right
+      targetPosition: left
+      type: custom
+      width: 241
+    - data:
+        dataset_ids:
+        - /QBp7zphaRWzoEXqbsCWPuAZsBHOocIq9ekiqT5W7tAP77VWH50MJgdioGqSJmCi
+        desc: ''
+        multiple_retrieval_config:
+          reranking_enable: false
+          reranking_mode: reranking_model
+          reranking_model:
+            model: gte-rerank-v2
+            provider: langgenius/tongyi/tongyi
+          score_threshold: null
+          top_k: 4
+        query_attachment_selector: []
+        query_variable_selector:
+        - sys
+        - query
+        retrieval_mode: multiple
+        selected: false
+        title: 知识检索
+        type: knowledge-retrieval
+      height: 89
+      id: '1751115097133'
+      position:
+        x: -558.7800551299576
+        y: 289.09075323060404
+      positionAbsolute:
+        x: -558.7800551299576
+        y: 289.09075323060404
+      selected: false
+      sourcePosition: right
+      targetPosition: left
+      type: custom
+      width: 241
+    - data:
+        context:
+          enabled: true
+          variable_selector:
+          - '1751115097133'
+          - result
+        desc: ''
+        model:
+          completion_params:
+            temperature: 0.4
+          mode: chat
+          name: deepseek-chat
+          provider: langgenius/deepseek/deepseek
+        prompt_template:
+        - id: e984529d-f3ff-431d-8341-7c9791bf5dc6
+          role: system
+          text: "你是建筑行业数据分析专家，精通SQLServer。根据用户问题生成SQL查询。\n\n**核心规则**：\n1. 只输出完整SQL语句，不添加任何注释和分析\n\
+            2. 仅查询数据库已有的表和字段\n3. 生成的查询语句必须符合SQLServer语法规则\n4. 只允许查询当前数据库中实际存在的表。对于不存在的表，应返回错误提示：\"\
+            表 [表名] 不存在，请检查数据库结构。\n\n**关键技巧**：\n1. WHERE子句：\n   - 对于字符字段用LIKE操作，而不是等于操作，例如：WHERE\
+            \ 产品型号 LIKE N'%关键词%'，而不是WHERE 产品型号='关键词'。\n\n2. 日期处理：\n   - 用CAST转换日期：CAST(生产完成时间\
+            \ AS DATE)\n   - 用DATEADD和DATEDIFF计算\n   - 用GETDATE()获取当前日期\n   -当年用YEAR(日期字段)=YEAR(GETDATE())\n\
+            \   -近五年包含今年\n   - 禁用DATE()函数\n\n3. 聚合函数：\n   - SUM(): 总和（如总产量）\n   -\
+            \ AVG(): 平均值（如平均时间）\n   - COUNT(): 计数（如产品数量）\n\n4. 除法处理：\n   必须用模板：\n\
+            \   CASE WHEN [除数] = 0 THEN 0 \n   ELSE CAST([被除数] AS FLOAT) / [除数] \n\
+            \   END AS [结果列名]\n\n5.查询任何相关项目信息必须用LZMISPM.DBO.PM_PROJECT INNER JOIN\
+            \ LZMISPM.DBO.PM_WBSNODE ON   PM_PROJECT.WN_ID= PM_WBSNODE.WN_ID，这两张表同时存在的数据才是有效项目数据;\n\
+            \n6.项目WBS四层结构，查询项目、阶段、子项、专业相关信息参考下面的查询：\nSELECT WN1.WN_ID AS 项目ID,WN1.WN_Name\
+            \ AS  项目名称,WN1.WN_Code AS 工号,WN2.WN_ID AS  阶段ID,WN2.WN_Name AS 阶段,WN3.WN_ID\
+            \ AS 子项ID,WN3.WN_Code AS 子项编号,WN3.WN_Name AS 子项名称,WN4.WN_ID AS 专业ID,WN4.WN_Name\
+            \ AS 专业名称 FROM PM_Project INNER JOIN PM_WbsNode AS WN1 ON PM_Project.WN_ID=WN1.WN_ID\
+            \ \nINNER JOIN PM_WbsNode AS WN2 ON WN2.WN_ParentID =WN1.WN_ID\nINNER\
+            \ JOIN PM_WBSNODE AS WN3 ON WN3.WN_ParentID =WN2.WN_ID\nINNER JOIN PM_WbsNode\
+            \ AS WN4 ON WN4.WN_ParentID = WN3.WN_ID\n\n7.查询各部门去年签约项目数、合同数、收费额时，函数需要写到子查询里，避免重复数据导致数据错误，查所有部门的时候要按排序字段排序，以下是SQL示例：\n\
+            SELECT D.OD_Name AS 部门名称, OD_ShowIndex, P.签约项目数, C.合同数, C.合同额, SF.收费额\
+            \ FROM LZMISFrame.dbo.SF_Org_Department D LEFT JOIN ( SELECT COUNT(P.WN_ID)\
+            \ AS 签约项目数, PR_LXBM FROM LZMISPM.DBO.PM_Project P INNER JOIN LZMISPM.DBO.PM_Contract\
+            \ C ON C.WN_Id = P.WN_ID WHERE YEAR(C.CT_GDRQ) = YEAR(GETDATE()) - 1 GROUP\
+            \ BY PR_LXBM ) AS P ON P.PR_LXBM = D.OD_Id LEFT JOIN ( SELECT COUNT(CT_ID)\
+            \ AS 合同数, SUM(PM_Contract.CT_Money) AS 合同额, PM_Contract.ZDSJBM FROM LZMISPM.DBO.PM_Contract\
+            \ WHERE YEAR(PM_Contract.CT_GDRQ) = YEAR(GETDATE()) - 1 GROUP BY PM_Contract.ZDSJBM\
+            \ ) AS C ON C.ZDSJBM = D.OD_Id LEFT JOIN ( SELECT SUM(A.收费额) AS 收费额, A.PR_ItemDepment\
+            \ FROM ( SELECT SUM(PM_ContractGathering.RG_Money) AS 收费额, PM_ContractGathering.HTBM\
+            \ AS PR_ItemDepment FROM LZMISPM.DBO.PM_ContractGathering WHERE YEAR(PM_ContractGathering.RG_Date)\
+            \ = YEAR(GETDATE()) - 1 AND (CT_ID IS NULL OR CT_ID = '') GROUP BY PM_ContractGathering.HTBM\
+            \ UNION ALL SELECT SUM(PM_ContractGathering.收费额) AS 收费额, PM_Contract.ZDSJBM\
+            \ AS PR_ItemDepment FROM LZMISPM.DBO.PM_Project INNER JOIN LZMISPM.DBO.PM_Contract\
+            \ ON PM_Project.WN_ID = PM_Contract.WN_Id INNER JOIN ( SELECT SUM(PM_ContractGathering.RG_Money)\
+            \ AS 收费额, CT_ID FROM LZMISPM.DBO.PM_ContractGathering WHERE YEAR(PM_ContractGathering.RG_Date)\
+            \ = YEAR(GETDATE()) - 1 GROUP BY CT_ID ) AS PM_ContractGathering ON PM_Contract.CT_ID\
+            \ = PM_ContractGathering.CT_ID GROUP BY PM_Contract.ZDSJBM ) AS A GROUP\
+            \ BY A.PR_ItemDepment ) AS SF ON SF.PR_ItemDepment = D.OD_Id WHERE OD_IsDel\
+            \ = 0 ORDER BY D.OD_ShowIndex\n\n8.对编写的查询语句进行检查，通过系统表INFORMATION_SCHEMA.COLUMNS，查询哪个库的表字段要在前面加库名，比如LZMISPM.INFORMATION_SCHEMA.COLUMNS，不要编写出不存在的字段。\n\
+            \n9.查询某部门人员负荷，就是查询员工手上未完成的子项数，未完成的子项判定是近2年立项的项目，员工参与策划的子项在协同图纸表里存在设计文件，并且该子项还没有完成阶段出图单，例如查询建筑设计一院的人员负荷情况SQL示例如下：SELECT\
+            \  DISTINCT\n        utb.OU_Code as 工号,\n        utb.OU_Name as 姓名,\n\
+            \        ISNULL(tb2.num, '0') AS 进行中子项数    \nFROM    LZMISFrame.dbo.SF_Org_User\
+            \ AS utb\n INNER JOIN  LZMISPM.DBO.LZ_MISDepartmentUser ON utb.OU_UserId\
+            \ = LZ_MISDepartmentUser.SU_UserID\n\t\tINNER JOIN LZMISPM.DBO.LZ_MISDepartment\
+            \ ON LZ_MISDepartment.UG_UserGrpID=LZ_MISDepartmentUser.UG_UserGrpID\n\
+            \        LEFT  JOIN ( SELECT    SU_UserID ,\n  COUNT(DISTINCT WN3.WN_ID)\
+            \ AS num\n  FROM LZMISPM.DBO.r_DynamicRoleUser\n  INNER JOIN LZMISPM.DBO.PM_WbsNode\
+            \ AS WN1 ON r_DynamicRoleUser.ProjectID = WN1.WN_ID\n INNER JOIN LZMISPM.DBO.PM_Project\
+            \ ON WN1.WN_ID =PM_Project.WN_ID\n INNER JOIN LZMISPM.DBO.PM_WbsNode AS\
+            \ WN4 ON WN4.WN_ID = r_DynamicRoleUser.WN_ID\n INNER JOIN LZMISPM.DBO.PM_WbsNode\
+            \ AS WN3 ON WN3.WN_ID = WN4.WN_ParentID  \n WHERE     r_DynamicRoleUser.DR_IsValid\
+            \ = 1  AND DATEDIFF(YY,PR_CreateTime,GETDATE())<=2\n AND NOT EXISTS (SELECT\
+            \ 1 FROM xxzx.dbo.choose_by_jd INNER JOIN LZMISWF.DBO.WF_His_Instance\
+            \ ON fiid=FI_ID WHERE WN3.WN_ID=zx_id) AND EXISTS (SELECT 1 FROM LZMISPM.DBO.CoD_FileInfo\
+            \ WHERE CWF_SubProjectID=WN3.WN_ID) GROUP BY  SU_UserID  AS tb2 ON tb2.SU_UserID\
+            \ = utb.OU_UserId AND utb.OU_UserId <> 'SU000000000001'\nWHERE LZ_MISDepartment.UG_UserGrpName\
+            \ LIKE '%建筑设计一院%'\nGROUP BY utb.OU_Code,utb.OU_Name,tb2.num\nORDER BY\
+            \  ISNULL(tb2.num, '0')\n\n10.当用户输入中包含“X室”或“X院”时，自动将其规范化为“建筑设计XX院”，再用于生成SQL语句。例如：\n\
+            “一院” → “建筑设计一院”\n“三室” → “建筑设计三院”\n“建筑五院” → “建筑设计五院”\n“6院” → “建筑设计六院”\n\
+            \n**注意**：\n- 检查表名和字段名\n- 字符字段用LIKE N'%关键词%'\n- 所有除法用指定模板\n- 日期处理用正确函数\n\
+            - 根据需求选择正确的聚合函数\n参考示例：{{#context#}}"
+        - id: 3697b84d-f06d-4cb8-8a28-6dc7ede8dd2e
+          role: user
+          text: "表结描述：\nLZMISPM库PM_PROJECT，是项目信息表，以下是该表的字段描述：\n    PR_CreateTime是立项时间，日期；\n\
+            \    WN_ID是主键，字符串；\n    PR_LXBM是立项部门，字符串，存的是部门ID，对应的部门名称到部门信息表找；\nLZMISPM库PM_WBSNODE，是项目WBS结构表，该表记录项目WBS分解层级的数据，一共是四层结构，表内WN_ID和WN_PARENTID\
+            \ 存在父子关系，以下是该表的字段描述：\n    WN_NAME在第一层是项目名称，字符串；\n        WN_CODE 在第一层是工号，字符串；\n\
+            \    WN_ID是主键，字符串\nLZMISFRAME库SF_Org_Department表，是部门信息表，以下是该表的字段描述：\n\
+            \    OD_ID是部门ID，主键，字符串，系统里所有存的部门ID数据都用该字段关联；\n    OD_NAME 是部门名称，字符串。\n\
+            表关系：LZMISPM.DBO.PM_PROJECT.WN_ID=LZMISPM.DBO.PM_WBSNODE.WN_ID，有效的项目信息必须这两张表WN_ID匹配。\n\
+            问题:{{#sys.query#}}"
+        selected: false
+        structured_output_enabled: false
+        title: 编写查询语句
+        type: llm
+        variables: []
+        vision:
+          enabled: false
+      height: 87
+      id: '1751115148353'
+      position:
+        x: -222.35969449948982
+        y: 289.09075323060404
+      positionAbsolute:
+        x: -222.35969449948982
+        y: 289.09075323060404
+      selected: false
+      sourcePosition: right
+      targetPosition: left
+      type: custom
+      width: 241
+    - data:
+        code: "import re\nimport json\n\ndef main(sql_string) :\n    # 检查输入参数类型\n\
+          \    if not isinstance(sql_string, str):\n        return {\n           \
+          \ \"result\": \"Error: input should be a string.\"\n        }\n    \n  \
+          \  # 移除代码块标记和反斜杠n\n    sql_string = re.sub(r'```sql\\s*', '', sql_string)\n\
+          \    sql_string = re.sub(r'\\s*```', '', sql_string)\n    sql_string = sql_string.replace('\\\
+          \\n', ' ')\n    \n    # 移除多余的空白字符\n    sql_string = ' '.join(sql_string.split())\
+          \    \n    \n    return {\n        \"result\": sql_string,\n    }"
+        code_language: python3
+        desc: ''
+        outputs:
+          result:
+            children: null
+            type: string
+        selected: false
+        title: 整理查询语句
+        type: code
+        variables:
+        - value_selector:
+          - '1751115148353'
+          - text
+          variable: sql_string
+      height: 51
+      id: '1751115290496'
+      position:
+        x: 194.99822055164464
+        y: 298.1135353305406
+      positionAbsolute:
+        x: 194.99822055164464
+        y: 298.1135353305406
+      selected: false
+      sourcePosition: right
+      targetPosition: left
+      type: custom
+      width: 241
+    - data:
+        code: "import urllib.request\nimport json\n\ndef main(sql_query: str) -> dict:\n\
+          \    # ✅ 完整的 API 路径（使用公网地址）\n    api_url = \"https://7qc8381063yk.vicp.fun/api/records/execute\"\
+          \n    \n    # ✅ 正确的字段名是 \"sql\"\n    payload = {\"sql\": sql_query}\n  \
+          \  \n    data = json.dumps(payload).encode('utf-8')\n    req = urllib.request.Request(\n\
+          \        api_url, \n        data=data, \n        headers={\"Content-Type\"\
+          : \"application/json\"}\n    )\n    \n    try:\n        with urllib.request.urlopen(req,\
+          \ timeout=10) as response:\n            result = json.loads(response.read().decode('utf-8'))\n\
+          \            return {'result': result.get('message', '操作完成')}\n    except\
+          \ Exception as e:\n        return {'result': f'错误: {str(e)}'}\n"
+        code_language: python3
+        desc: ''
+        outputs:
+          result:
+            children: null
+            type: string
+        selected: false
+        title: 执行查询
+        type: code
+        variables:
+        - value_selector:
+          - '1751115290496'
+          - result
+          variable: sql_query
+      height: 51
+      id: '1751115391686'
+      position:
+        x: 547.476640998992
+        y: 298.1135353305406
+      positionAbsolute:
+        x: 547.476640998992
+        y: 298.1135353305406
+      selected: false
+      sourcePosition: right
+      targetPosition: left
+      type: custom
+      width: 241
+    viewport:
+      x: 658.8180349213341
+      y: -12.873901751795813
+      zoom: 0.5743491774985181
+  rag_pipeline_variables: []
